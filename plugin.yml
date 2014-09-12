@@ -1,0 +1,15 @@
+name: SkillSet
+version: A1.00.00
+main: me.capit.classes.SkillSetMain
+
+author: 'Wehttam664 (NukesForKids)'
+
+prefix: Skills
+depend: 
+  - DataShuttleMC
+  
+commands:
+  
+
+permissions:
+  

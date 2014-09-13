@@ -11,6 +11,7 @@ public class Skills implements Serializable {
 	final SkillSetMain plugin;
 	
 	private HashMap<String, Integer> levels = new HashMap<String, Integer>();
+	private int unspentPoints = 0;
 	
 	public Skills(SkillSetMain plugin, UUID uuid){
 		this.plugin = plugin;
@@ -37,6 +38,36 @@ public class Skills implements Serializable {
 	
 	public void incrementSkillValue(String name){
 		incrementSkillValue(name,1);
+	}
+	
+	public int getUnspentPoints(){
+		return unspentPoints;
+	}
+	
+	public void giveUnspentPoints(int amount){
+		unspentPoints+=amount;
+	}
+	
+	public boolean hasUnspentPoints(int amount){
+		return unspentPoints>=amount;
+	}
+	
+	public boolean takeUnspentPoints(int amount){
+		if (hasUnspentPoints(amount)){
+			unspentPoints-=amount;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean spendUnspentPoints(String skill, int amount){
+		if (takeUnspentPoints(amount)){
+			incrementSkillValue(skill, amount);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }

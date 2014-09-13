@@ -1,0 +1,25 @@
+#==== SkillSet =============================#
+# Authored by Wehttam664 (NukesForKids)
+# For use of the configuration, please view GitHub
+# at https://github.com/Wehttam664/SkillSet/wiki/
+config:
+  SMELT_FAILURE: cobblestone
+  BREW_FAILURE: potion:16
+skills:
+  Mining:
+    jobs:
+      BREAK: stone>1
+    prereq:
+      CRAFT: diamond_pickaxe>100
+  Archery:
+    jobs:
+      KILL: Player>100
+      ATTACK: Player>1
+      KILL: Monster>10
+      ATTACK: Monster>1
+  Enchanting:
+    jobs:
+      ENCHANT: *>10
+    prereq:
+      ENCHANT: FIRE_ASPECT>50
+

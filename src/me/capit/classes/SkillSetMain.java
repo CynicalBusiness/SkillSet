@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SkillSetMain extends JavaPlugin {
 	public static HashMap<String,Skills> skillsData = new HashMap<String,Skills>();
+	public static SkillTree tree;
 	
 	public static Logger logger;
 	
@@ -26,7 +27,13 @@ public class SkillSetMain extends JavaPlugin {
 		logger.info("Attempting to read disk content...");
 		getSkillsFromDisk();
 		
+		logger.info("Registering data from configuration...");
+		tree = new SkillTree(this, getConfig());
 		
+		logger.info("Registering events...");
+		
+		
+		logger.info("Registering commands & permissions...");
 	}
 	
 	@Override

@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Item;
+import org.bukkit.inventory.ItemStack;
 
 public class SkillTree implements Serializable {
 	private static final long serialVersionUID = -2365953189384666737L;
@@ -31,6 +35,28 @@ public class SkillTree implements Serializable {
 			this.val = Integer.parseInt(keyval[1]);
 			this.type = type;
 		}
+		
+		// Stacks of 1 item have set dv. Stacks of two have any dv.
+		// Air will match any item.
+		public ItemStack getItem(){
+			String[] keydv = key.split(":");
+			Material item = null;
+			ItemStack is = null;
+			item = Material.valueOf(key);
+			if (item!=null){
+				is = new ItemStack(item, 1);
+			} else if (keydv[0]=="*"){
+				is = new ItemStack(Material.AIR, 1);
+			}
+			if (keydv.length>1){
+				if (keydv[1]=="*"){
+					is.setAmount(2);
+				} else {
+					is.setDurability((short) Integer.parseInt(keydv[1]));
+				}
+			}
+			return is;
+		}
 	}
 	
 	final SkillSetMain plugin;
@@ -47,6 +73,30 @@ public class SkillTree implements Serializable {
 			if (key==skill) return true;
 		}
 		return false;
+	}
+	
+	public List<String> getSkillNames(){
+		List<String> strs = new ArrayList<String>();
+		for (String key : config.getConfigurationSection("skills").getKeys(false)){
+			strs.add(key);
+		}
+		return strs;
+	}
+	
+	public List<List<SkillItem>> getAllJobs(){
+		List<List<SkillItem>> list = new ArrayList<List<SkillItem>>();
+		for (String skill : getSkillNames()){
+			list.add(getJobs(skill));
+		}
+		return list;
+	}
+	
+	public List<List<SkillItem>> getAllPrereq(){
+		List<List<SkillItem>> list = new ArrayList<List<SkillItem>>();
+		for (String skill : getSkillNames()){
+			list.add(getPrereq(skill));
+		}
+		return list;
 	}
 	
 	public List<SkillItem> getJobs(String skill){

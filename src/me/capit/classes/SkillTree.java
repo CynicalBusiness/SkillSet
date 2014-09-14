@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 public class SkillTree implements Serializable {
@@ -23,17 +21,20 @@ public class SkillTree implements Serializable {
 	class SkillItem implements Serializable{
 		private static final long serialVersionUID = 9103082537201131942L;
 		public final String key; public final int val; public final SkillType type;
+		public final String skill;
 		
-		public SkillItem(String key, int val, SkillType type){
+		public SkillItem(String key, int val, SkillType type, String skill){
 			this.key=key; this.val=val;
 			this.type = type;
+			this.skill = skill;
 		}
 		
-		public SkillItem(String ref, SkillType type){
+		public SkillItem(String ref, SkillType type, String skill){
 			String[] keyval = ref.split(">");
 			this.key = keyval[0];
 			this.val = Integer.parseInt(keyval[1]);
 			this.type = type;
+			this.skill = skill;
 		}
 		
 		// Stacks of 1 item have set dv. Stacks of two have any dv.
@@ -115,7 +116,7 @@ public class SkillTree implements Serializable {
 				String ref = "skills."+skill+"."+key+".";
 				SkillType type = SkillType.valueOf(item);
 				if (type!=null){
-					items.add(new SkillItem(config.getString(ref+item),type));
+					items.add(new SkillItem(config.getString(ref+item),type, skill));
 				}
 			}
 		} 

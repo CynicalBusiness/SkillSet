@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class SkillSetMain extends JavaPlugin {
 	public static HashMap<String,Skills> skillsData = new HashMap<String,Skills>();
 	public static SkillTree tree;
+	public static InteractionListener listener;
 	
 	public static Logger logger;
 	
@@ -31,7 +32,8 @@ public class SkillSetMain extends JavaPlugin {
 		tree = new SkillTree(this, getConfig());
 		
 		logger.info("Registering events...");
-		
+		listener = new InteractionListener(this);
+		getServer().getPluginManager().registerEvents(listener, this);
 		
 		logger.info("Registering commands & permissions...");
 	}

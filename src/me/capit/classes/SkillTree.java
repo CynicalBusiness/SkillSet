@@ -111,7 +111,7 @@ public class SkillTree implements Serializable {
 	private List<SkillItem> get(String skill, boolean isjob){
 		String key = isjob ? "jobs" : "prereq";
 		List<SkillItem> items = new ArrayList<SkillItem>();
-		if (config.contains("skills."+skill)){
+		if (config.contains("skills."+skill+"."+key)){
 			for (String item : config.getConfigurationSection("skills."+skill+"."+key).getKeys(false)){
 				String ref = "skills."+skill+"."+key+".";
 				SkillType type = SkillType.valueOf(item);

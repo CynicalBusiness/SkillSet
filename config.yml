@@ -8,18 +8,18 @@ config:
 skills:
   Mining:
     jobs:
-      BREAK: stone>1
+      BREAK: 'stone>1'
     prereq:
-      CRAFT: diamond_pickaxe>100
+      CRAFT: 'diamond_pickaxe>100'
   Archery:
     jobs:
-      KILL: Player>100
-      ATTACK: Player>1
-      KILL: Monster>10
-      ATTACK: Monster>1
+      KILL: 'Player>100'
+      ATTACK: 'Player>1'
+      KILL: 'Monster>10'
+      ATTACK: 'Monster>1'
   Enchanting:
     jobs:
-      ENCHANT: *>10
+      ENCHANT: '*>10'
     prereq:
-      ENCHANT: FIRE_ASPECT>50
+      ENCHANT: 'FIRE_ASPECT>50'
 

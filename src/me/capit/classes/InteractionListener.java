@@ -27,7 +27,7 @@ public class InteractionListener implements Listener, Serializable {
 			List<SkillItem> items = isjob ? SkillSetMain.tree.getJobs(skill) : SkillSetMain.tree.getPrereq(skill);
 			for (SkillItem item : items){
 				// TODO Check for stars.
-				if (item.type==type && (item.key==key)) list.add(item);
+				if (item.type==type && (item.key.equalsIgnoreCase(key))) list.add(item);
 			}
 		}
 		return list;
@@ -43,10 +43,10 @@ public class InteractionListener implements Listener, Serializable {
 			if (b.getData()!=0){
 				key+=":"+b.getData();
 			}
+			SkillSetMain.logger.info("Player "+p.getName()+" broke "+b.getType().toString()+". Got '"+key+"'.");
 			List<SkillItem> jobs = getMatchedFor(SkillType.BREAK, key, true);
 			List<SkillItem> prereq = getMatchedFor(SkillType.BREAK, key, false);
-			SkillSetMain.logger.info("Player "+p.getName()+" broke "+b.getType().toString()+" with "+jobs.size()
-					+" jobs and "+prereq.size()+" prereq.");
+			SkillSetMain.logger.info("  Registered "+jobs.size()+" jobs and "+prereq.size()+" prereq.");
 		}
 	}
 
